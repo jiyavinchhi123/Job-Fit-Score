@@ -1,0 +1,72 @@
+const API_BASE = "http://localhost:8080";
+
+function getSessionId() {
+    let sessionId = localStorage.getItem("sessionId");
+    if (!sessionId) {
+        sessionId = crypto.randomUUID();
+        localStorage.setItem("sessionId", sessionId);
+    }
+    return sessionId;
+}
+
+function getUserId() {
+    return localStorage.getItem("userId");
+}
+
+function authHeaders(extra = {}) {
+    const headers = { ...extra, "X-Session-Id": getSessionId() };
+    const userId = getUserId();
+    if (userId) headers["X-User-Id"] = userId;
+    return headers;
+}
+
+async function uploadResume(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch(`${API_BASE}/upload-resume`, {
+        method: "POST",
+        headers: authHeaders(),
+        body: formData
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Upload failed");
+    return data.resumeId;
+}
+
+async function analyzeJob(resumeId, jobDescription) {
+    const res = await fetch(`${API_BASE}/analyze-job`, {
+        method: "POST",
+        headers: authHeaders({ "Content-Type": "application/json" }),
+        body: JSON.stringify({ resumeId, jobDescription })
+    });
+    const data = await res.json();
+    if (!res.ok) throw { status: res.status, message: data.error || "Analyze failed" };
+    return data;
+}
+
+document.getElementById("checkFitBtn").addEventListener("click", async () => {
+    const messageEl = document.getElementById("message");
+    messageEl.className = "muted";
+    messageEl.textContent = "Processing...";
+
+    try {
+        const file = document.getElementById("resume").files[0];
+        const jobDescription = document.getElementById("jobDescription").value.trim();
+        if (!file) throw new Error("Please upload a resume file.");
+        if (!jobDescription) throw new Error("Please paste a job description.");
+
+        const resumeId = await uploadResume(file);
+        const result = await analyzeJob(resumeId, jobDescription);
+        localStorage.setItem("lastResultId", result.resultId);
+        window.location.href = "./result.html";
+    } catch (err) {
+        if (err.status === 402) {
+            messageEl.className = "error";
+            messageEl.textContent = `${err.message} Redirecting to pricing...`;
+            setTimeout(() => (window.location.href = "./pricing.html"), 1000);
+            return;
+        }
+        messageEl.className = "error";
+        messageEl.textContent = err.message || "Something went wrong";
+    }
+});
