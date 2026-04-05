@@ -1,4 +1,5 @@
-const API_BASE = "http://localhost:8080";
+const API_BASE = (window.API_BASE || "https://jobfit-backend-gnr1.onrender.com");
+
 
 function sessionId() {
     let id = localStorage.getItem("sessionId");
