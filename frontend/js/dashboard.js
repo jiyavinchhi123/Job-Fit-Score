@@ -1,4 +1,5 @@
-const API_BASE = "http://localhost:8080";
+const API_BASE = (window.API_BASE || "https://jobfit-backend-gnr1.onrender.com");
+
 
 function getHeaders() {
     const headers = { "X-Session-Id": localStorage.getItem("sessionId") || "" };
