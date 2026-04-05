@@ -1,5 +1,5 @@
 # Use Java 17
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk
 
 # Copy jar file
 COPY target/*.jar app.jar
