@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeFit | Upload</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./components.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="navbarMount"></div>
+<main class="page">
+    <div class="container">
+        <div class="card" style="max-width:760px;margin:0 auto;">
+            <h2 class="section-title">Upload your Resume</h2>
+            <p class="section-subtitle">Supported formats: PDF / DOCX (max 5MB)</p>
+
+            <div id="dropzone" class="upload-dropzone">
+                <div style="font-size:1.9rem;">&#8682;</div>
+                <p style="margin:10px 0 6px;font-weight:600;">Drag & drop your resume here</p>
+                <p class="support-text">or choose file manually below</p>
+            </div>
+
+            <label for="resume" style="display:block;margin-top:14px;margin-bottom:8px;font-weight:600;">Resume File</label>
+            <input class="file-input" id="resume" type="file" accept=".pdf,.docx">
+
+            <label for="jobDescription" style="display:block;margin-top:14px;margin-bottom:8px;font-weight:600;">Job Description</label>
+            <textarea class="textarea" id="jobDescription" placeholder="Paste the job description here..."></textarea>
+
+            <button class="button button-primary button-block" id="checkFitBtn" style="margin-top:16px;">Analyze Resume</button>
+            <p id="message" class="muted" style="margin-top:12px;"></p>
+        </div>
+    </div>
+</main>
+<div id="footerMount"></div>
+<script src="./js/components.js"></script>
+<script src="./js/upload.js"></script>
+</body>
+</html>

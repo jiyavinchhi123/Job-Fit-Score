@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeFit | Pricing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./components.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="navbarMount"></div>
+<main class="page">
+    <div class="container">
+        <div class="grid">
+            <div class="card">
+                <h2 class="section-title">Free Plan</h2>
+                <p class="section-subtitle">3 Resume Scans</p>
+                <p class="muted">Try fit analysis before upgrading.</p>
+                <div style="margin-top:22px;font-size:1.8rem;font-weight:800;">INR 0</div>
+            </div>
+            <div class="card plan-highlight">
+                <h2 class="section-title">Pro Plan</h2>
+                <p class="section-subtitle">Unlimited Scans</p>
+                <p class="muted">Best for active applicants and placements.</p>
+                <div style="margin-top:22px;font-size:1.8rem;font-weight:800;">INR 199</div>
+                <button class="button button-primary button-block" id="upgradeBtn" style="margin-top:16px;">Upgrade to Pro</button>
+                <p id="paymentMsg" class="muted" style="margin-top:12px;"></p>
+            </div>
+        </div>
+    </div>
+</main>
+<div id="footerMount"></div>
+<script src="./js/components.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="./js/pricing.js"></script>
+</body>
+</html>
