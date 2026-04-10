@@ -37,3 +37,7 @@ public class AuthController {
         return Map.of("authenticated", true, "userId", user.getId(), "email", user.getEmail(), "plan", user.getPlan());
     }
 }
+@GetMapping("/health")
+public String health() {
+    return "OK";
+}
