@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuthController {
+
     private final AuthService authService;
 
     public AuthController(AuthService authService) {
@@ -31,13 +32,22 @@ public class AuthController {
     @GetMapping("/me")
     public Map<String, Object> me(@RequestHeader(value = "X-User-Id", required = false) Long userId) {
         User user = authService.getUserById(userId);
+
         if (user == null) {
             return Map.of("authenticated", false, "plan", "free");
         }
-        return Map.of("authenticated", true, "userId", user.getId(), "email", user.getEmail(), "plan", user.getPlan());
+
+        return Map.of(
+                "authenticated", true,
+                "userId", user.getId(),
+                "email", user.getEmail(),
+                "plan", user.getPlan()
+        );
     }
-}
-@GetMapping("/health")
-public String health() {
-    return "OK";
+
+    // ✅ HEALTH ENDPOINT (INSIDE CLASS)
+    @GetMapping("/health")
+    public String health() {
+        return "OK";
+    }
 }
